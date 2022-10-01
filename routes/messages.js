@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const User = require('../models/user');
+const Message = require('../models/message');
 const bcrypt = require('bcrypt');
 
 /** GET /:id - get detail of message.
@@ -15,6 +16,14 @@ const bcrypt = require('bcrypt');
  * Make sure that the currently-logged-in users is either the to or from user.
  *
  **/
+router.get('/:id', (req, res, next) => {
+	try {
+		const msg = Message.get(req.params.id);
+		return res.json({ msg });
+	} catch (e) {
+		next(e);
+	}
+});
 
 /** POST / - post message.
  *
