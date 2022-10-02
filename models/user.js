@@ -47,7 +47,7 @@ class User {
       RETURNING username`,
 			[ username ]
 		);
-		if (!results.row[0]) {
+		if (!results.rows[0]) {
 			throw new ExpressError(`No such user: ${username}`, 404);
 		}
 	}
@@ -122,7 +122,7 @@ class User {
 			id: m.id,
 			to_user: {
 				username: m.to_username,
-				firs_name: m.first_name,
+				first_name: m.first_name,
 				last_name: m.last_name,
 				phone: m.phone
 			},
@@ -141,7 +141,7 @@ class User {
    */
 
 	static async messagesTo(username) {
-		results = await db.query(
+		const results = await db.query(
 			`
     SELECT m.id,
             m.from_username,
@@ -161,7 +161,7 @@ class User {
 			id: m.id,
 			to_user: {
 				username: m.to_username,
-				firs_name: m.first_name,
+				first_name: m.first_name,
 				last_name: m.last_name,
 				phone: m.phone
 			},
